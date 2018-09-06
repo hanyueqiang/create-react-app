@@ -10,6 +10,7 @@ import Notice from './pages/ui/notice'
 import Itabs from './pages/ui/tabs'
 import Message from './pages/ui/message'
 import FormLogin from './pages/form/login'
+import FormRegister from './pages/form/register'
 import NoMatch from './pages/nomatch'
 
 export default class IRouter extends React.Component {
@@ -28,6 +29,7 @@ export default class IRouter extends React.Component {
                                 <Route path='/admin/ui/message' component={ Message }></Route>
                                 <Route path='/admin/ui/tabs' component={ Itabs }></Route>
                                 <Route path='/admin/form/login' component={ FormLogin }></Route>
+                                <Route path='/admin/form/reg' component={ FormRegister }></Route>
                                 <Route component={ NoMatch }></Route>
                             </Switch>
                         </Admin>

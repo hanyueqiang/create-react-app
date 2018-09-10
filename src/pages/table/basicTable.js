@@ -1,9 +1,13 @@
 import React from 'react'
 import { Card, Table, Modal, Button, message } from 'antd'
 import axios from './../../axios/index'
+import Utils from './../../utils/utils';
 export default class BasicTable extends React.Component{
     state= {
         dataSource2: []
+    }
+    params = {
+        page: 1
     }
     componentDidMount() {
         const dataSource = [
@@ -55,11 +59,12 @@ export default class BasicTable extends React.Component{
     //     })
     // }
     request = () => {
+        let _this = this;
         axios.ajax({
             url: '/table/list1',
             data: {
                 params: {
-                    page: 1
+                    page: this.params.page
                 }
             }
         }).then((res) => {
@@ -70,7 +75,12 @@ export default class BasicTable extends React.Component{
                 this.setState({
                     dataSource2: res.result.list,
                     selectedRowKeys: [],
-                    selectedRows: null
+                    selectedRows: null,
+                    pagination: Utils.pagination(res, (current) => {
+                        //to-do
+                        _this.params.page = current
+                        this.request()
+                    })
                 })
             }
         })
@@ -232,11 +242,18 @@ export default class BasicTable extends React.Component{
                                 }
                             }
                         }
-
                         }
                         columns={ columns }
                         dataSource={ this.state.dataSource2 }
                         pagination= { false }
+                    />
+                </Card>
+                <Card title='分页-easy-mock' style={{marginTop:10}}>
+                    <Table
+                        bordered
+                        columns={ columns }
+                        dataSource={ this.state.dataSource2 }
+                        pagination= { this.state.pagination }
                     />
                 </Card>
                  

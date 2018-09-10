@@ -6,12 +6,44 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 export default class City extends React.Component {
 
+    params = {
+        page: 1
+    }
+    state = {
+
+    }
+
     handleOpenCity = () => {
 
     }
+    componentDidMount() {
+        this.requsetList()
+    }
+
     
     //默认请求接口数据
     requsetList = () => {
+        let _this = this;
+        axios.ajax({
+            url: '/open_city',
+            data: {
+                params: {
+                    page: this.params.page
+                }
+            }
+        }).then((res) => {
+            let list = res.result.item_list.map((item, index) => {
+                item.key = index;
+                return item
+            })
+            this.setState({
+                list: list,
+                pagination: Utils.pagination(res, (current) => {
+                    _this.params.page = current;
+                    _this.requsetList()
+                })
+            })
+        })
 
     }
     render() {
@@ -38,7 +70,12 @@ export default class City extends React.Component {
             },
             {
                 title: '城市管理员',
-                dataIndex: 'city_admins'
+                dataIndex: 'city_admins',
+                render(arr) {
+                    return arr.map((item) => {
+                        return item.user_name;
+                    }).join(',')
+                }
             },
             {
                 title: '城市开通时间',
@@ -58,13 +95,17 @@ export default class City extends React.Component {
                 <Card>
                     <FilterForm/>
                 </Card>
-                <Card>
+                <Card style={{ marginTop: 10 }}>
                     <Button type='primary' onClick = { this.handleOpenCity }>开通城市</Button>
                 </Card>
-                <Table
-                    columns = {columns}
-                    dataSource  = {this.state.dataSource}
-                />
+                <div className='content-wrap'>
+                    <Table
+                        bordered
+                        columns = {columns}
+                        dataSource  = {this.state.list}
+                    />
+                </div>
+                
             </div>
         )
     }

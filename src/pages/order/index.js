@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Button, Table, Form, Select, DatePicker } from 'antd'
+import { Card, Button, Table, Form, Select, DatePicker, Modal } from 'antd'
 import axios from './../../axios'
 import Utils from './../../utils/utils'
 const FormItem = Form.Item;
@@ -13,6 +13,29 @@ export default class Order extends React.Component {
 
     componentDidMount() {
         this.requestList()
+    }
+
+    handleConfirm = () => {
+        let item = this.state.selectedItem;
+        if (!item) {
+            Modal.info({
+                title: '信息',
+                content: '请选择一条订单进行结束'
+            })
+            return
+        }
+    }
+    openOrderDetail = () => {
+        // let item = this.state.selectedItem;
+        // if (!item) {
+        //     Modal.info({
+        //         title: '信息',
+        //         content: '请先选择一条订单'
+        //     })
+        //     return
+        // }
+        window.open('/#/common/order/detail/195156', '_blank')
+        //window.location.href = '/#/common/order/detail/195156'
     }
 
     requestList = () => {
@@ -94,8 +117,8 @@ export default class Order extends React.Component {
                     <FilterForm />
                 </Card>
                 <Card style={{ marginTop: 10 }}>
-                    <Button>订单详情</Button>
-                    <Button>结束订单</Button>
+                    <Button type='primary' onClick={this.openOrderDetail}>订单详情</Button>
+                    <Button type='primary' style={{ marginLeft: 10 }} onClick={this.handleConfirm}>结束订单</Button>
                 </Card>
                 <div className="content-wrap">
                     <Table

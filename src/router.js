@@ -15,6 +15,7 @@ import BasicTable from './pages/table/basicTable'
 import HighTable from './pages/table/highTable'
 import City from './pages/city'
 import Order from './pages/order'
+import Detail from './pages/order/detail'
 import NoMatch from './pages/nomatch'
 import Common from './common'
 
@@ -45,7 +46,7 @@ export default class IRouter extends React.Component {
                     }></Route>
                     <Route path="/common" render={() => 
                         <Common>
-                            <Route path='/common/order/detail/:orderId' component={Login} />
+                            <Route path='/common/order/detail/:orderId' component={Detail} />
                         </Common>
                     }>
                     </Route>

@@ -23,6 +23,12 @@ export default class BikeMap extends React.Component {
     handleSubmit = () => {
 
     }
+    componentDidMount() {
+        this.renderMap()
+    }
+    renderMap = () => {
+        //this.map = new window.BMap.Map('container');
+    }
 
     render() {
         return(
@@ -30,7 +36,9 @@ export default class BikeMap extends React.Component {
                 <Card>
                     <BaseForm formList={this.formList} filterSubmit={this.handleSubmit}/>
                 </Card>
-                <Card>
+                <Card style={{marginTop:10}}>
+                    <div>共100辆车</div>
+                    <div id="container" style={{height:500}}></div>
                 </Card>
             </div>
         )

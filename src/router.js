@@ -19,6 +19,7 @@ import User from './pages/user'
 import Detail from './pages/order/detail'
 import BikeMap from './pages/map/bikeMap'
 import NoMatch from './pages/nomatch'
+import Bar from './pages/echarts/bar'
 import Common from './common'
 
 export default class IRouter extends React.Component {
@@ -44,6 +45,7 @@ export default class IRouter extends React.Component {
                                 <Route path='/admin/paymanage' component={Order}></Route>
                                 <Route path='/admin/staffmanage' component={User}></Route>
                                 <Route path='/admin/car' component={BikeMap}></Route>
+                                <Route path='/admin/icon' component={Bar}></Route>
                                 <Route component={NoMatch}></Route>
                             </Switch>
                         </Admin>
